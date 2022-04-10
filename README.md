@@ -10,3 +10,10 @@
 
 ### Unity 3D
 `Unity3DVer` holds the 3D Unity starting code for this challenge
+
+
+## How to load
+1. Clone repo
+2. Open up Unity
+3. Load in unity the specific folder for the starting code you want to use
+4. HAVE FUN!
