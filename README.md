@@ -17,3 +17,10 @@
 2. Open up Unity
 3. Load in unity the specific folder for the starting code you want to use
 4. HAVE FUN!
+
+
+## Pushing updates to base projects
+Make sure to put a copy of the `.gitignore` in the root of the unity projects
+
+Ex:
+If unity creates a "My Project" folder, put the `.gitignore` in that folder
