@@ -236,9 +236,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 10
   jumpSpeed: 14
+  holdJumpGravityFactor: 0.4
   acceleration: 50
   aerialAcceleration: 10
-  gravity: 40
+  gravity: 50
   cameraObject: {fileID: 1467344055}
   sensitivity: 1
   jumpWindow: 0.15
@@ -742,7 +743,7 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
+  field of view: 75
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
