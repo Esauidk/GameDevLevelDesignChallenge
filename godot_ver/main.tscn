@@ -1,26 +1,11 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://checkers.material" type="Material" id=1]
+[ext_resource path="res://levels/basic_test_level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
 [ext_resource path="res://player.gd" type="Script" id=3]
-[ext_resource path="res://enemy.gd" type="Script" id=4]
+[ext_resource path="res://levels/trivial_test_level.tscn" type="PackedScene" id=4]
 [ext_resource path="res://snayk_growing_on_me.mp3" type="AudioStream" id=5]
 [ext_resource path="res://slap.wav" type="AudioStream" id=6]
-
-[sub_resource type="SpatialMaterial" id=6]
-flags_transparent = true
-params_cull_mode = 2
-albedo_color = Color( 0.619608, 0.94902, 0.607843, 0.537255 )
-
-[sub_resource type="SphereShape" id=8]
-radius = 0.2
-
-[sub_resource type="SpatialMaterial" id=9]
-params_cull_mode = 1
-albedo_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="SpatialMaterial" id=7]
-albedo_color = Color( 0, 0, 1, 1 )
 
 [sub_resource type="BoxShape" id=5]
 extents = Vector3( 0.4, 0.4, 0.4 )
@@ -35,237 +20,11 @@ albedo_color = Color( 1, 0, 0, 1 )
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 2 )
+levels = [ ExtResource( 4 ), ExtResource( 1 ) ]
 
 [node name="Level" type="Spatial" parent="."]
 
-[node name="StartArea" type="CSGBox" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
-width = 1.999
-height = 0.999
-depth = 1.999
-material = SubResource( 6 )
-
-[node name="CSGBox7" type="CSGBox" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -2, 0 )
-use_collision = true
-width = 5.0
-depth = 6.0
-material = ExtResource( 1 )
-
-[node name="Platform" type="CSGCombiner" parent="Level"]
-material_override = ExtResource( 1 )
-use_collision = true
-
-[node name="CSGBox" type="CSGBox" parent="Level/Platform"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -1, 0 )
-width = 5.0
-
-[node name="CSGBox6" type="CSGBox" parent="Level/Platform"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 3, 0 )
-width = 5.0
-
-[node name="CSGBox5" type="CSGBox" parent="Level/Platform"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 25, -1, 0 )
-width = 6.0
-
-[node name="CSGBox2" type="CSGBox" parent="Level/Platform"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 8, -1, 0 )
-width = 6.0
-
-[node name="CSGBox3" type="CSGBox" parent="Level/Platform"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 13, -1, 0 )
-width = 6.0
-
-[node name="CSGBox4" type="CSGBox" parent="Level/Platform"]
-transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18, -1, 0 )
-width = 6.0
-
-[node name="Enemy" type="KinematicBody" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 4 )
-waypoints = [ NodePath("WP1"), NodePath("WP2") ]
-speed = 6.0
-
-[node name="CollisionShape" type="CollisionShape" parent="Level/Enemy"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Level/Enemy"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Level/Enemy"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
-
-[node name="WP2" type="Spatial" parent="Level/Enemy"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
-
-[node name="Enemy2" type="KinematicBody" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 4 )
-waypoints = [ NodePath("WP2"), NodePath("WP1") ]
-speed = 6.0
-
-[node name="CollisionShape" type="CollisionShape" parent="Level/Enemy2"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Level/Enemy2"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy2"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Level/Enemy2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
-
-[node name="WP2" type="Spatial" parent="Level/Enemy2"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
-
-[node name="Enemy3" type="KinematicBody" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 4 )
-waypoints = [ NodePath("WP2"), NodePath("WP1") ]
-speed = 6.0
-
-[node name="CollisionShape" type="CollisionShape" parent="Level/Enemy3"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Level/Enemy3"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy3"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Level/Enemy3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
-
-[node name="WP2" type="Spatial" parent="Level/Enemy3"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
-
-[node name="Enemy4" type="KinematicBody" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 4 )
-waypoints = [ NodePath("WP1"), NodePath("WP2") ]
-speed = 6.0
-
-[node name="CollisionShape" type="CollisionShape" parent="Level/Enemy4"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Level/Enemy4"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy4"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Level/Enemy4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
-
-[node name="WP2" type="Spatial" parent="Level/Enemy4"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
-
-[node name="Enemy5" type="KinematicBody" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 4 )
-waypoints = [ NodePath("WP1"), NodePath("WP2") ]
-speed = 6.0
-
-[node name="CollisionShape" type="CollisionShape" parent="Level/Enemy5"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Level/Enemy5"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy5"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Level/Enemy5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
-
-[node name="WP2" type="Spatial" parent="Level/Enemy5"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
-
-[node name="Enemy6" type="KinematicBody" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 4 )
-waypoints = [ NodePath("WP2"), NodePath("WP1") ]
-speed = 6.0
-
-[node name="CollisionShape" type="CollisionShape" parent="Level/Enemy6"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Level/Enemy6"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy6"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Level/Enemy6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
-
-[node name="WP2" type="Spatial" parent="Level/Enemy6"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
-
-[node name="EndArea" type="CSGBox" parent="Level"]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 27, 0.5, 0 )
-width = 1.999
-height = 0.999
-depth = 1.999
-material = SubResource( 6 )
+[node name="BasicTestLevel" parent="Level" instance=ExtResource( 1 )]
 
 [node name="Camera" type="InterpolatedCamera" parent="."]
 transform = Transform( 1, 0, 0, 0, 0.84051, 0.541796, 0, -0.541796, 0.84051, 0, 5.44374, 6.47226 )
@@ -276,6 +35,8 @@ enabled = true
 
 [node name="Player" type="KinematicBody" parent="." groups=["player"]]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.401, 0 )
+collision_layer = 17
+collision_mask = 17
 script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
@@ -353,6 +114,19 @@ volume_db = 2.0
 [node name="InfoLabel" type="Label" parent="."]
 margin_right = 40.0
 margin_bottom = 14.0
+
+[node name="WinLabel" type="Label" parent="."]
+visible = false
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -28.5
+margin_top = -7.0
+margin_right = 28.5
+margin_bottom = 7.0
+text = "You won!"
+align = 1
 
 [connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
 [connection signal="body_entered" from="Player/EnemyDetector" to="Player" method="_on_EnemyDetector_body_entered"]

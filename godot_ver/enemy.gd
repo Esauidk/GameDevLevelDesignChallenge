@@ -6,6 +6,7 @@ export var speed = 4.0
 var waypoint_locations = []
 var waypoint_index = 0
 
+
 func _ready():
 	for waypoint in waypoints:
 		waypoint_locations.append(get_node(waypoint).get_global_transform().origin)
@@ -25,9 +26,3 @@ func _physics_process(delta):
 	
 	if waypoint_index >= waypoint_locations.size():
 		waypoint_index = 0
-
-
-
-#func _on_Enemy_body_entered(body):
-#	print("foo")
-#	get_tree().call_group("player", "enemy_collided", self)
