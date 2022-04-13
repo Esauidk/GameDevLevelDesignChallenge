@@ -66,4 +66,5 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/directional_shadow/size=8192
 environment/default_environment="res://default_env.tres"

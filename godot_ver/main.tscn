@@ -1,6 +1,6 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://checkerboard.gdshader" type="Shader" id=1]
+[ext_resource path="res://checkers.material" type="Material" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
 [ext_resource path="res://player.gd" type="Script" id=3]
 [ext_resource path="res://enemy.gd" type="Script" id=4]
@@ -11,9 +11,6 @@
 flags_transparent = true
 params_cull_mode = 2
 albedo_color = Color( 0.619608, 0.94902, 0.607843, 0.537255 )
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 1 )
 
 [sub_resource type="SphereShape" id=8]
 radius = 0.2
@@ -29,6 +26,8 @@ albedo_color = Color( 0, 0, 1, 1 )
 extents = Vector3( 0.4, 0.4, 0.4 )
 
 [sub_resource type="SpatialMaterial" id=3]
+flags_unshaded = true
+params_cull_mode = 1
 albedo_color = Color( 0.498039, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=4]
@@ -46,12 +45,23 @@ height = 0.999
 depth = 1.999
 material = SubResource( 6 )
 
+[node name="CSGBox7" type="CSGBox" parent="Level"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -2, 0 )
+use_collision = true
+width = 5.0
+depth = 6.0
+material = ExtResource( 1 )
+
 [node name="Platform" type="CSGCombiner" parent="Level"]
-material_override = SubResource( 2 )
+material_override = ExtResource( 1 )
 use_collision = true
 
 [node name="CSGBox" type="CSGBox" parent="Level/Platform"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, -1, 0 )
+width = 5.0
+
+[node name="CSGBox6" type="CSGBox" parent="Level/Platform"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 3, 0 )
 width = 5.0
 
 [node name="CSGBox5" type="CSGBox" parent="Level/Platform"]
@@ -82,13 +92,14 @@ speed = 6.0
 shape = SubResource( 8 )
 
 [node name="CSGSphere" type="CSGSphere" parent="Level/Enemy"]
+cast_shadow = 0
 radius = 0.2
 radial_segments = 24
 rings = 12
 material = SubResource( 9 )
 
 [node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy"]
-radius = 0.15
+radius = 0.17
 radial_segments = 24
 rings = 12
 material = SubResource( 7 )
@@ -111,13 +122,14 @@ speed = 6.0
 shape = SubResource( 8 )
 
 [node name="CSGSphere" type="CSGSphere" parent="Level/Enemy2"]
+cast_shadow = 0
 radius = 0.2
 radial_segments = 24
 rings = 12
 material = SubResource( 9 )
 
 [node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy2"]
-radius = 0.15
+radius = 0.17
 radial_segments = 24
 rings = 12
 material = SubResource( 7 )
@@ -140,13 +152,14 @@ speed = 6.0
 shape = SubResource( 8 )
 
 [node name="CSGSphere" type="CSGSphere" parent="Level/Enemy3"]
+cast_shadow = 0
 radius = 0.2
 radial_segments = 24
 rings = 12
 material = SubResource( 9 )
 
 [node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy3"]
-radius = 0.15
+radius = 0.17
 radial_segments = 24
 rings = 12
 material = SubResource( 7 )
@@ -169,13 +182,14 @@ speed = 6.0
 shape = SubResource( 8 )
 
 [node name="CSGSphere" type="CSGSphere" parent="Level/Enemy4"]
+cast_shadow = 0
 radius = 0.2
 radial_segments = 24
 rings = 12
 material = SubResource( 9 )
 
 [node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy4"]
-radius = 0.15
+radius = 0.17
 radial_segments = 24
 rings = 12
 material = SubResource( 7 )
@@ -198,13 +212,14 @@ speed = 6.0
 shape = SubResource( 8 )
 
 [node name="CSGSphere" type="CSGSphere" parent="Level/Enemy5"]
+cast_shadow = 0
 radius = 0.2
 radial_segments = 24
 rings = 12
 material = SubResource( 9 )
 
 [node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy5"]
-radius = 0.15
+radius = 0.17
 radial_segments = 24
 rings = 12
 material = SubResource( 7 )
@@ -227,13 +242,14 @@ speed = 6.0
 shape = SubResource( 8 )
 
 [node name="CSGSphere" type="CSGSphere" parent="Level/Enemy6"]
+cast_shadow = 0
 radius = 0.2
 radial_segments = 24
 rings = 12
 material = SubResource( 9 )
 
 [node name="CSGSphere2" type="CSGSphere" parent="Level/Enemy6"]
-radius = 0.15
+radius = 0.17
 radial_segments = 24
 rings = 12
 material = SubResource( 7 )
@@ -255,11 +271,11 @@ material = SubResource( 6 )
 transform = Transform( 1, 0, 0, 0, 0.84051, 0.541796, 0, -0.541796, 0.84051, 0, 5.44374, 6.47226 )
 fov = 50.0
 target = NodePath("../Player/CameraBase/CameraTarget")
-speed = 5.0
+speed = 3.0
 enabled = true
 
 [node name="Player" type="KinematicBody" parent="." groups=["player"]]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.401, 0 )
 script = ExtResource( 3 )
 
 [node name="CollisionShape" type="CollisionShape" parent="Player"]
@@ -273,30 +289,34 @@ collision_mask = 256
 shape = SubResource( 5 )
 
 [node name="DarkBox" type="CSGBox" parent="Player"]
-width = 0.799
-height = 0.79
-depth = 0.79
+cast_shadow = 0
+width = 0.8
+height = 0.8
+depth = 0.8
 material = SubResource( 3 )
 
 [node name="LightBox" type="CSGBox" parent="Player"]
-width = 0.8
-height = 0.55
-depth = 0.55
+cast_shadow = 0
+width = 0.75
+height = 0.75
+depth = 0.75
 material = SubResource( 4 )
 
-[node name="LightBox2" type="CSGBox" parent="Player"]
-transform = Transform( -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 0, 0, 0 )
+[node name="ShadowBox" type="CSGBox" parent="Player"]
+cast_shadow = 3
 width = 0.8
-height = 0.55
-depth = 0.55
-material = SubResource( 4 )
+height = 0.8
+depth = 0.8
+material = SubResource( 3 )
 
-[node name="LightBox3" type="CSGBox" parent="Player"]
-transform = Transform( -4.37114e-08, 1, -4.37114e-08, 0, -4.37114e-08, -1, -1, -4.37114e-08, 1.91069e-15, 0, 0, 0 )
+[node name="ShadowBox2" type="CSGBox" parent="Player/ShadowBox"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.01, 0.00999999, 0.01 )
+cast_shadow = 3
+operation = 2
 width = 0.8
-height = 0.55
-depth = 0.55
-material = SubResource( 4 )
+height = 0.8
+depth = 0.8
+material = SubResource( 3 )
 
 [node name="MoveGuide" type="Spatial" parent="Player"]
 transform = Transform( 0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0 )
@@ -311,17 +331,20 @@ transform = Transform( 1, 0, 0, 0, 0.84051, 0.541796, 0, -0.541796, 0.84051, 0, 
 transform = Transform( 0.875, 0.129409, 0.466506, -0.466506, 0.482963, 0.741025, -0.12941, -0.866025, 0.482963, 0, 0, 0 )
 light_energy = 0.5
 shadow_enabled = true
+shadow_bias = 0.0
+shadow_reverse_cull_face = true
+directional_shadow_mode = 0
 directional_shadow_normal_bias = 0.0
 directional_shadow_depth_range = 1
 
 [node name="Music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 5 )
-volume_db = -5.0
+volume_db = -8.0
 autoplay = true
 
 [node name="Slap" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
-volume_db = 5.0
+volume_db = 2.0
 
 [connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
 [connection signal="body_entered" from="Player/EnemyDetector" to="Player" method="_on_EnemyDetector_body_entered"]
