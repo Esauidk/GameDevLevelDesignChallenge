@@ -6,10 +6,12 @@ public class MovementController : MonoBehaviour
 {
     //Variables
     public float maxSpeed = 6.0F;
+    private float effectiveMaxSpeed;
     private float currentJumpSpeed;
     private float currentForwardSpeed;
     private float currentSideSpeed;
     public float jumpSpeed = 8.0F;
+    public float jumpBoost = 1.0F;
     public float holdJumpGravityFactor = 0.5f;
     public float acceleration = 12.0F;
     public float aerialAcceleration = 6.0F;
@@ -20,6 +22,7 @@ public class MovementController : MonoBehaviour
     private float turner;
     private float looker;
     public float sensitivity;
+
     private CharacterController controller;
 
     public float jumpWindow = 0.2f;
@@ -51,6 +54,8 @@ public class MovementController : MonoBehaviour
         // updates the player controller.
         ApplyMovement();
 
+        Debug.Log(currentForwardSpeed);
+
     }
 
 	void CheckForGround()
@@ -63,6 +68,11 @@ public class MovementController : MonoBehaviour
                 // the player has just landed
                 grounded = true;
                 currentJumpSpeed = 0;
+
+                if(jumpBuffer == 0)
+				{
+                    effectiveMaxSpeed = maxSpeed;
+				}
             }
         }
         else
@@ -128,7 +138,7 @@ public class MovementController : MonoBehaviour
 			{
                 accelerationValue *= 3;
 			}
-            currentSideSpeed = Mathf.Clamp(currentSideSpeed + Input.GetAxisRaw("Horizontal") * accelerationValue * Time.deltaTime, -maxSpeed, maxSpeed);
+            currentSideSpeed = Mathf.Clamp(currentSideSpeed + Input.GetAxisRaw("Horizontal") * accelerationValue * Time.deltaTime, -effectiveMaxSpeed, effectiveMaxSpeed);
         }
 
         if (Input.GetAxisRaw("Vertical") == 0)
@@ -151,13 +161,13 @@ public class MovementController : MonoBehaviour
             {
                 accelerationValue *= 3;
             }
-            currentForwardSpeed = Mathf.Clamp(currentForwardSpeed + Input.GetAxisRaw("Vertical") * accelerationValue * Time.deltaTime, -maxSpeed, maxSpeed);
+            currentForwardSpeed = Mathf.Clamp(currentForwardSpeed + Input.GetAxisRaw("Vertical") * accelerationValue * Time.deltaTime, -effectiveMaxSpeed, effectiveMaxSpeed);
         }
 
         moveDirection = new Vector3(currentSideSpeed, 0, currentForwardSpeed);
-        if (moveDirection.magnitude > maxSpeed)
+        if (moveDirection.magnitude > effectiveMaxSpeed)
 		{
-            moveDirection = moveDirection.normalized * maxSpeed;
+            moveDirection = moveDirection.normalized * effectiveMaxSpeed;
 		}
         moveDirection = transform.TransformDirection(moveDirection);
     }
@@ -186,11 +196,14 @@ public class MovementController : MonoBehaviour
         {
             if (grounded || coyoteTime > 0)
 			{
-                Debug.Log("jump");
                 coyoteTime = 0;
                 grounded = false;
                 currentJumpSpeed = jumpSpeed;
                 moveDirection.y = jumpSpeed;
+                if (currentForwardSpeed == effectiveMaxSpeed)
+				{
+                    effectiveMaxSpeed += jumpBoost;
+                }
             }
             else if (jumpBuffer <= 0)
 			{
