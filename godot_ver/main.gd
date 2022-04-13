@@ -24,12 +24,14 @@ func switch_to_level(index):
 		child.queue_free()
 	$Level.add_child(new_level)
 	new_level.connect("level_finished", self, "_on_level_finished")
+	$LevelNumber.text = str(level_index + 1)
 	reset_player()
 
 
 func _on_Player_player_died():
 	deaths += 1
 	$Slap.play()
+	$FailsCount.text = str(deaths)
 	reset_player()
 
 func _on_level_finished():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://levels/basic_test_level.tscn" type="PackedScene" id=1]
 [ext_resource path="res://main.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://levels/trivial_test_level.tscn" type="PackedScene" id=4]
 [ext_resource path="res://snayk_growing_on_me.mp3" type="AudioStream" id=5]
 [ext_resource path="res://slap.wav" type="AudioStream" id=6]
+[ext_resource path="res://SourceSansPro-Regular.ttf" type="DynamicFontData" id=7]
 
 [sub_resource type="BoxShape" id=5]
 extents = Vector3( 0.4, 0.4, 0.4 )
@@ -17,6 +18,10 @@ albedo_color = Color( 0.498039, 0, 0, 1 )
 
 [sub_resource type="SpatialMaterial" id=4]
 albedo_color = Color( 1, 0, 0, 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 30
+font_data = ExtResource( 7 )
 
 [node name="Main" type="Spatial"]
 script = ExtResource( 2 )
@@ -125,6 +130,43 @@ margin_right = 28.5
 margin_bottom = 7.0
 text = "You won!"
 align = 1
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchor_right = 1.0
+margin_bottom = 40.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="FailsText" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -137.0
+margin_right = -79.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 6 )
+text = "FAILS:"
+
+[node name="FailsCount" type="Label" parent="."]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -50.0
+margin_right = 16.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 6 )
+text = "0"
+
+[node name="LevelText" type="Label" parent="."]
+margin_left = 7.0
+margin_right = 92.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 6 )
+text = "LEVEL:"
+
+[node name="LevelNumber" type="Label" parent="."]
+margin_left = 100.0
+margin_right = 166.0
+margin_bottom = 39.0
+custom_fonts/font = SubResource( 6 )
+text = "1"
 
 [connection signal="player_died" from="Player" to="." method="_on_Player_player_died"]
 [connection signal="body_entered" from="Player/EnemyDetector" to="Player" method="_on_EnemyDetector_body_entered"]
