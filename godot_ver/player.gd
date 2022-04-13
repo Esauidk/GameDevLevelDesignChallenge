@@ -22,7 +22,11 @@ func _physics_process(delta):
 	velocity.z *= 0.6
 	velocity = move_and_slide(velocity, Vector3.UP)
 	
-	if is_on_floor() and Input.is_action_just_pressed("jump"):
+	
+	if is_on_floor():
+		$CoyoteTime.start()
+	
+	if $CoyoteTime.time_left > 0 and Input.is_action_just_pressed("jump"):
 		velocity.y = 5.0
 		jumping = true
 	
