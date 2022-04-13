@@ -6,6 +6,7 @@ export var level_index = 0
 var deaths = 0
 
 func _ready():
+#	pass
 	switch_to_level(level_index)
 
 func _physics_process(delta):

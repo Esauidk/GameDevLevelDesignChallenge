@@ -1,22 +1,12 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://enemy.gd" type="Script" id=1]
 [ext_resource path="res://checkers.material" type="Material" id=2]
 [ext_resource path="res://level.gd" type="Script" id=3]
+[ext_resource path="res://enemy.tscn" type="PackedScene" id=4]
 
 [sub_resource type="SpatialMaterial" id=6]
 flags_transparent = true
 albedo_color = Color( 0.619608, 0.94902, 0.607843, 0.537255 )
-
-[sub_resource type="SphereShape" id=8]
-radius = 0.2
-
-[sub_resource type="SpatialMaterial" id=9]
-params_cull_mode = 1
-albedo_color = Color( 0, 0, 0, 1 )
-
-[sub_resource type="SpatialMaterial" id=7]
-albedo_color = Color( 0, 0, 1, 1 )
 
 [sub_resource type="BoxShape" id=10]
 extents = Vector3( 1, 0.5, 1 )
@@ -30,13 +20,6 @@ width = 1.999
 height = 0.999
 depth = 1.999
 material = SubResource( 6 )
-
-[node name="CSGBox7" type="CSGBox" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -2, 0 )
-use_collision = true
-width = 5.0
-depth = 6.0
-material = ExtResource( 2 )
 
 [node name="Platform" type="CSGCombiner" parent="."]
 material_override = ExtResource( 2 )
@@ -66,184 +49,71 @@ width = 6.0
 transform = Transform( -4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18, -1, 0 )
 width = 6.0
 
-[node name="Enemy" type="KinematicBody" parent="."]
+[node name="CSGBox7" type="CSGBox" parent="Platform"]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -2, 0 )
+use_collision = true
+width = 5.0
+depth = 6.0
+material = ExtResource( 2 )
+
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 1 )
-waypoints = [ NodePath("WP1"), NodePath("WP2") ]
-speed = 6.0
+waypoints = [ NodePath("E1WP1"), NodePath("E1WP2") ]
 
-[node name="CollisionShape" type="CollisionShape" parent="Enemy"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Enemy"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Enemy"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Enemy"]
+[node name="E1WP1" type="Spatial" parent="Enemy"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
 
-[node name="WP2" type="Spatial" parent="Enemy"]
+[node name="E1WP2" type="Spatial" parent="Enemy"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
-[node name="Enemy2" type="KinematicBody" parent="."]
+[node name="Enemy2" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 1 )
-waypoints = [ NodePath("WP2"), NodePath("WP1") ]
-speed = 6.0
+waypoints = [ NodePath("E2WP2"), NodePath("E2WP1") ]
 
-[node name="CollisionShape" type="CollisionShape" parent="Enemy2"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Enemy2"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Enemy2"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Enemy2"]
+[node name="E2WP1" type="Spatial" parent="Enemy2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
 
-[node name="WP2" type="Spatial" parent="Enemy2"]
+[node name="E2WP2" type="Spatial" parent="Enemy2"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
-[node name="Enemy3" type="KinematicBody" parent="."]
+[node name="Enemy3" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 1 )
-waypoints = [ NodePath("WP2"), NodePath("WP1") ]
-speed = 6.0
+waypoints = [ NodePath("E3WP2"), NodePath("E3WP1") ]
 
-[node name="CollisionShape" type="CollisionShape" parent="Enemy3"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Enemy3"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Enemy3"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Enemy3"]
+[node name="E3WP1" type="Spatial" parent="Enemy3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
 
-[node name="WP2" type="Spatial" parent="Enemy3"]
+[node name="E3WP2" type="Spatial" parent="Enemy3"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
-[node name="Enemy4" type="KinematicBody" parent="."]
+[node name="Enemy4" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 13.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 1 )
-waypoints = [ NodePath("WP1"), NodePath("WP2") ]
-speed = 6.0
+waypoints = [ NodePath("E4WP1"), NodePath("E4WP2") ]
 
-[node name="CollisionShape" type="CollisionShape" parent="Enemy4"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Enemy4"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Enemy4"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Enemy4"]
+[node name="E4WP1" type="Spatial" parent="Enemy4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
 
-[node name="WP2" type="Spatial" parent="Enemy4"]
+[node name="E4WP2" type="Spatial" parent="Enemy4"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
-[node name="Enemy5" type="KinematicBody" parent="."]
+[node name="Enemy5" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 1 )
-waypoints = [ NodePath("WP1"), NodePath("WP2") ]
-speed = 6.0
+waypoints = [ NodePath("E5WP1"), NodePath("E5WP2") ]
 
-[node name="CollisionShape" type="CollisionShape" parent="Enemy5"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Enemy5"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Enemy5"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Enemy5"]
+[node name="E5WP1" type="Spatial" parent="Enemy5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
 
-[node name="WP2" type="Spatial" parent="Enemy5"]
+[node name="E5WP2" type="Spatial" parent="Enemy5"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
-[node name="Enemy6" type="KinematicBody" parent="."]
+[node name="Enemy6" parent="." instance=ExtResource( 4 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 18.5, 0.4, 0 )
-collision_layer = 256
-collision_mask = 256
-script = ExtResource( 1 )
-waypoints = [ NodePath("WP2"), NodePath("WP1") ]
-speed = 6.0
+waypoints = [ NodePath("E6WP2"), NodePath("E6WP1") ]
 
-[node name="CollisionShape" type="CollisionShape" parent="Enemy6"]
-shape = SubResource( 8 )
-
-[node name="CSGSphere" type="CSGSphere" parent="Enemy6"]
-cast_shadow = 0
-radius = 0.2
-radial_segments = 24
-rings = 12
-material = SubResource( 9 )
-
-[node name="CSGSphere2" type="CSGSphere" parent="Enemy6"]
-radius = 0.17
-radial_segments = 24
-rings = 12
-material = SubResource( 7 )
-
-[node name="WP1" type="Spatial" parent="Enemy6"]
+[node name="E6WP1" type="Spatial" parent="Enemy6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3 )
 
-[node name="WP2" type="Spatial" parent="Enemy6"]
+[node name="E6WP2" type="Spatial" parent="Enemy6"]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3 )
 
 [node name="EndArea" type="Area" parent="."]
