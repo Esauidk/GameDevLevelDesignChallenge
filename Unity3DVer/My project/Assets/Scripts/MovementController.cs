@@ -53,9 +53,6 @@ public class MovementController : MonoBehaviour
 
         // updates the player controller.
         ApplyMovement();
-
-        Debug.Log(currentForwardSpeed);
-
     }
 
 	void CheckForGround()
