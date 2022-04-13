@@ -6,7 +6,6 @@
 
 [sub_resource type="SpatialMaterial" id=6]
 flags_transparent = true
-params_cull_mode = 2
 albedo_color = Color( 0.619608, 0.94902, 0.607843, 0.537255 )
 
 [sub_resource type="SphereShape" id=8]
